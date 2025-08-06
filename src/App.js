@@ -14,6 +14,7 @@ const KEY = "cc998a05629ce7e8b99ce48ee8b447fb";
 
 export default function App() {
   const [query, setQuery] = useState("");
+  const [isSearched, setIsSearched] = useState(false);
   const [weather, setWeather] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
@@ -81,7 +82,7 @@ export default function App() {
 
   useEffect(
     function () {
-      if (query.length >= 2 && !error) document.title = `Weather | ${query}`;
+      if (query.length > 2 && !error) document.title = `Weather | ${query}`;
 
       return function () {
         document.title = "Weather App ☁️";
@@ -93,7 +94,12 @@ export default function App() {
   return (
     <Main>
       <Navbar>
-        <Search query={query} setQuery={setQuery} />
+        <Search
+          query={query}
+          setQuery={setQuery}
+          searched={isSearched}
+          setSearched={setIsSearched}
+        />
       </Navbar>
       {isLoading && <Loader />}
 
@@ -104,11 +110,6 @@ export default function App() {
           <LocationInfo weather={weather} onCurrentDate={handleCurrentDate} />
           <WeatherSummary weather={weather} onWeatherIcon={handleWeatherIcon} />
           <WeatherCondition weather={weather} />
-          {/* <ForcecastItems
-            weather={weather}
-            onWeatherIcon={handleWeatherIcon}
-            onCurrentDate={handleCurrentDate}
-          /> */}
         </WeatherInfo>
       )}
 
