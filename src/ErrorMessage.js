@@ -3,7 +3,7 @@ export default function ErrorMessage({ message }) {
     <section className="not-found section-message">
       <img
         src="images/error-404-page-found-natural-concept-illustration-web-missing-landing-page_607751-150.avif"
-        alt="Err Msg"
+        alt="Error JPG"
       />
       <div>
         <h1>Error</h1>

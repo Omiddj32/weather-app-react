@@ -1,21 +1,24 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 export default function Search({ query, setQuery }) {
+  const inputEl = useRef(null);
+
   useEffect(
     function () {
       function callback(e) {
-        if (e.code === "Escape" && query.length > 2) {
+        if (document.activeElement === inputEl.current) return;
+
+        if (e.code === "Enter") {
+          inputEl.current.focus();
           setQuery("");
         }
       }
 
       document.addEventListener("keydown", callback);
 
-      return function () {
-        document.removeEventListener("keydown", callback);
-      };
+      return () => document.removeEventListener("keydown", callback);
     },
-    [setQuery, query]
+    [setQuery]
   );
 
   return (
@@ -26,6 +29,7 @@ export default function Search({ query, setQuery }) {
         placeholder="Search City"
         value={query}
         onChange={(e) => setQuery(e.target.value)}
+        ref={inputEl}
       />
       <button className="btn-search">
         <span className="material-symbols-outlined">
