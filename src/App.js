@@ -3,14 +3,17 @@ import Main from "./Main";
 import Navbar from "./Navbar";
 import Search from "./Search";
 import EntryMessage from "./EntryMessage";
-import Loader from "./Loader";
+// import Loader from "./Loader";
 import ErrorMessage from "./ErrorMessage";
 import WeatherInfo from "./WeatherInfo";
 import LocationInfo from "./LocationInfo";
 import WeatherSummary from "./WeatherSummary";
 import WeatherCondition from "./WeatherCondition";
+import DarkMode from "./DarkMode";
+import Footer from "./Footer";
+import Spinner from "./Spinner";
 
-const KEY = "cc998a05629ce7e8b99ce48ee8b447fb";
+const KEY = process.env.REACT_APP_WEATHER_KEY;
 
 export default function App() {
   const [query, setQuery] = useState("");
@@ -84,30 +87,37 @@ export default function App() {
       if (query.length > 2 && !error) document.title = `Weather | ${query}`;
 
       return function () {
-        document.title = "Weather App ☁️";
+        document.title = "Weather App";
       };
     },
     [query, error]
   );
 
   return (
-    <Main>
-      <Navbar>
-        <Search query={query} setQuery={setQuery} />
-      </Navbar>
-      {isLoading && <Loader />}
+    <>
+      <DarkMode />
+      <Main>
+        <Navbar>
+          <Search query={query} setQuery={setQuery} />
+        </Navbar>
+        {isLoading && <Spinner />}
 
-      {!query && <EntryMessage />}
+        {!query && <EntryMessage />}
 
-      {!isLoading && !error && (
-        <WeatherInfo weather={weather}>
-          <LocationInfo weather={weather} onCurrentDate={handleCurrentDate} />
-          <WeatherSummary weather={weather} onWeatherIcon={handleWeatherIcon} />
-          <WeatherCondition weather={weather} />
-        </WeatherInfo>
-      )}
+        {!isLoading && !error && (
+          <WeatherInfo weather={weather}>
+            <LocationInfo weather={weather} onCurrentDate={handleCurrentDate} />
+            <WeatherSummary
+              weather={weather}
+              onWeatherIcon={handleWeatherIcon}
+            />
+            <WeatherCondition weather={weather} />
+          </WeatherInfo>
+        )}
 
-      {error && <ErrorMessage message={error} />}
-    </Main>
+        {error && query !== "" && <ErrorMessage message={error} />}
+        <Footer />
+      </Main>
+    </>
   );
 }

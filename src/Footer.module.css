@@ -1,0 +1,12 @@
+.footer {
+  margin-top: auto;
+}
+
+.copyright {
+  position: fixed;
+  bottom: 14px;
+  right: 57px;
+  text-align: center;
+  font-size: 0.6rem;
+  color: #aaa;
+}
