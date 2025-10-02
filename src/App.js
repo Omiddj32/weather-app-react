@@ -14,7 +14,6 @@ import Footer from "./Footer";
 import Spinner from "./Spinner";
 
 export const KEY = process.env.REACT_APP_WEATHER_KEY;
-console.log(KEY);
 
 export default function App() {
   const [query, setQuery] = useState("");
