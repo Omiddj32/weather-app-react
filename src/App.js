@@ -13,7 +13,7 @@ import DarkMode from "./DarkMode";
 import Footer from "./Footer";
 import Spinner from "./Spinner";
 
-const KEY = process.env.REACT_APP_WEATHER_KEY;
+export const KEY = process.env.REACT_APP_WEATHER_KEY;
 
 export default function App() {
   const [query, setQuery] = useState("");
